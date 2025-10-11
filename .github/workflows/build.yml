@@ -1,4 +1,4 @@
-name: Build and upload Gradle artifact
+name: Build with Gradle
 
 on:
   push:
@@ -6,6 +6,7 @@ on:
 
 jobs:
   build:
+    name: Build with Gradle
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
