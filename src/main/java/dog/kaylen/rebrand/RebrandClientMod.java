@@ -47,6 +47,6 @@ public class RebrandClientMod implements ClientModInitializer {
 		instance = this;
 		// initialize the mod configuration
 		config = RebrandModConfigLoader.tryLoad();
-        this.logger.info("Rebrand initialized - brand on startup: '{}'", config.brandName);
+		this.logger.info("Rebrand initialized - brand on startup: '{}'", config.brandName);
 	}
 }

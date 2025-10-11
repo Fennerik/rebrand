@@ -36,7 +36,8 @@ public class ClientConnectionMixin {
 		if (!(packet instanceof CustomPayloadC2SPacket)) {
 			return;
 		}
-		if (((CustomPayloadC2SPacket) packet).comp_1647().comp_1678().toString().matches("minecraft:(?!(?:un)?register).*")) {
+		if (((CustomPayloadC2SPacket) packet).comp_1647().comp_1678().toString()
+				.matches("minecraft:(?!(?:un)?register).*")) {
 			return;
 		}
 		ci.cancel();

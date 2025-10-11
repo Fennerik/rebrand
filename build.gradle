@@ -3,8 +3,8 @@ plugins {
     id "com.diffplug.spotless" version "6.19.0"
 }
 
+group = "dog.kaylen"
 version = project.mod_version
-group = project.maven_group
 
 repositories {
     mavenCentral()
@@ -32,13 +32,23 @@ dependencies {
     include libs.toml4j
 }
 
-
 processResources {
-    inputs.property "version", project.version
+    inputs.properties([
+        version: project.version,
+        minecraft_version: libs.minecraft.get().version,
+        fabric_version: libs.fabric.loader.get().version,
+        modmenu_version: libs.modmenu.get().version
+    ])
+
     filteringCharset "UTF-8"
 
     filesMatching("fabric.mod.json") {
-        expand "version": project.version
+        expand(
+            version: project.version,
+            minecraft_version: libs.minecraft.get().version,
+            fabric_version: libs.fabric.loader.get().version,
+            modmenu_version: libs.modmenu.get().version
+        )
     }
 }
 
@@ -59,16 +69,17 @@ java {
     if (JavaVersion.current() < javaVersion) {
         toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     }
-    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-    // if it is present.
-    // If you remove this line, sources will not be generated.
-    withSourcesJar()
 }
 
 jar {
+    archiveVersion = "${project.version}+${libs.minecraft.get().version}"
     from("LICENSE") {
         rename { "${it}_rebrand" }
     }
+}
+
+remapJar {
+    archiveVersion = "${project.version}+${libs.minecraft.get().version}"
 }
 
 spotless {

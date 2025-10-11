@@ -1,7 +1,7 @@
 {
     "schemaVersion": 1,
     "id": "rebrand",
-    "version": "${version}",
+    "version": "${version}+${minecraft_version}",
     "name": "Rebrand",
     "description": "Customize your client brand sent to multiplayer servers.",
     "authors": [{
@@ -33,11 +33,11 @@
         "rebrand.mixins.json"
     ],
     "depends": {
-        "fabricloader": ">=0.17",
-        "minecraft": ">=1.20.4",
+        "fabricloader": "^${fabric_version}",
+        "minecraft": "^${minecraft_version}",
         "java": ">=21"
     },
     "suggests": {
-        "modmenu": ">=7"
+        "modmenu": "^9"
     }
 }
