@@ -30,7 +30,7 @@ public final class NetworkingBrandConfig {
 	 * Enables ghost mode, which disables plugin-based mod detection.
 	 */
 	@ConfigEntry.Gui.PrefixText
-    @ConfigEntry.Gui.Tooltip
+	@ConfigEntry.Gui.Tooltip
 	boolean ghostMode = false;
 
 	/**

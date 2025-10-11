@@ -44,9 +44,9 @@ public class TitleScreenMixin {
 		// Append modded status
 		if (config.shouldShowModdedStatus(root)) {
 			if (config.shouldShowBrandName(root) || config.shouldShowVersion(root)) {
-			    builder.append(" ");
-            }
-            builder.append("(Modded)");
+				builder.append(" ");
+			}
+			builder.append("(Modded)");
 		}
 
 		// Modify arguments
@@ -65,9 +65,9 @@ public class TitleScreenMixin {
 	 *            a value between 0.0 and 1.0 representing the hue position
 	 * @return the RGB color as an ARGB int
 	 */
-    private static int getGayColor() {
-        float t = (float)(Util.getMeasuringTimeMs() % 10000L) / 1000f; // cycle every 10 seconds
-        Color color = Color.getHSBColor(t, 1.0f, 1.0f);
-        return (0xFF << 24) | (color.getRed() << 16) | (color.getGreen() << 8) | color.getBlue();
-    }
+	private static int getGayColor() {
+		float t = (float) (Util.getMeasuringTimeMs() % 10000L) / 1000f; // cycle every 10 seconds
+		Color color = Color.getHSBColor(t, 1.0f, 1.0f);
+		return (0xFF << 24) | (color.getRed() << 16) | (color.getGreen() << 8) | color.getBlue();
+	}
 }
