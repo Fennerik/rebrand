@@ -5,48 +5,41 @@
 package dog.kaylen.rebrand;
 
 import dog.kaylen.rebrand.config.RebrandModConfig;
-import dog.kaylen.rebrand.config.RebrandModConfigLoader;
+import lombok.Getter;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class RebrandClientMod implements ClientModInitializer {
+	/**
+	 * The mod logger.
+	 */
+	@Getter
 	private final Logger logger = LogManager.getLogger("rebrand");
-	/**
-	 * Get the mod logger.
-	 * 
-	 * @return The mod logger.
-	 */
-	public Logger getLogger() {
-		return logger;
-	}
-	/**
-	 * The mod configuration.
-	 */
-	private RebrandModConfig config = new RebrandModConfig();
-	/**
-	 * Get the mod configuration.
-	 * 
-	 * @return The mod configuration.
-	 */
+
+	private RebrandModConfig config;
+
 	public RebrandModConfig getConfig() {
+		if (config == null) {
+			config = AutoConfig.getConfigHolder(RebrandModConfig.class).getConfig();
+		}
 		return config;
 	}
-	private static RebrandClientMod instance;
+
 	/**
-	 * Get the mod instance.
-	 * 
-	 * @return The mod instance.
+	 * The mod instance.
 	 */
-	public static RebrandClientMod getInstance() {
-		return instance;
-	}
+	@Getter
+	private static RebrandClientMod instance;
+
 	@Override
 	public void onInitializeClient() {
-		// set the singleton instance
 		instance = this;
-		// initialize the mod configuration
-		config = RebrandModConfigLoader.tryLoad();
-		this.logger.info("Rebrand initialized - brand on startup: '{}'", config.brandName);
+		AutoConfig.register(RebrandModConfig.class, Toml4jConfigSerializer::new);
+		logger.info("Rebrand v{} loaded.",
+				FabricLoader.getInstance().getModContainer("rebrand").get().getMetadata().getVersion());
 	}
 }

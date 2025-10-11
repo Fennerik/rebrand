@@ -29,7 +29,9 @@ jobs:
           ARTIFACT="build/libs/rebrand-${{ github.event.release.tag_name }}+*.jar"
           FILE=$(ls $ARTIFACT)
           echo "Found artifact: $FILE"
-          MC_VERSION=$(echo "$FILE" | grep -oP '(?<=\+)[^\.]+(?=\.jar)')
+          FILENAME=$(basename "$FILE")
+          MC_VERSION="${FILENAME#*+}"
+          MC_VERSION="${MC_VERSION%.jar}"
           echo "Extracted Minecraft version: $MC_VERSION"
           echo "::set-output name=mc_version::$MC_VERSION"
 

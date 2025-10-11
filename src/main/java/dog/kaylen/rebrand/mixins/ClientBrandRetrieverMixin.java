@@ -25,10 +25,6 @@ public class ClientBrandRetrieverMixin {
 			return;
 		}
 		RebrandModConfig config = RebrandClientMod.getInstance().getConfig();
-		// if custom brand is not enabled, return before setting
-		if (!config.enable) {
-			return;
-		}
-		info.setReturnValue(config.brandName);
+		info.setReturnValue(config.getNetworkingBrand().getBrandName(config));
 	}
 }

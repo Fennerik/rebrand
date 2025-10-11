@@ -6,7 +6,6 @@ package dog.kaylen.rebrand.mixins;
 
 import dog.kaylen.rebrand.RebrandClientMod;
 import dog.kaylen.rebrand.config.RebrandModConfig;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.c2s.login.LoginQueryResponseC2SPacket;
 import net.minecraft.network.packet.c2s.login.LoginQueryResponsePayload;
 import org.spongepowered.asm.mixin.Mixin;
@@ -26,11 +25,10 @@ public class LoginQueryResponseC2SPacketMixin {
 		if (RebrandClientMod.getInstance() == null) {
 			info.setReturnValue(null);
 		}
-		RebrandModConfig config = RebrandClientMod.getInstance().getConfig();
-		if (!config.enable || !config.ghostMode) {
+		RebrandModConfig config = RebrandClientMod.getInstance().getConfig();;
+		if (config.getNetworkingBrand().isGhostModeEnabled(config)) {
 			return;
 		}
 		info.setReturnValue(null);
 	}
-
 }

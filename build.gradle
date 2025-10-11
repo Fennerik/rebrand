@@ -14,6 +14,7 @@ repositories {
     maven { url "https://maven.nucleoid.xyz/releases" }
 }
 
+
 dependencies {
     // Fabric dependencies
     minecraft libs.minecraft
@@ -24,12 +25,27 @@ dependencies {
     modApi(libs.cloth.config) {
         exclude group: "net.fabricmc.fabric-api"
     }
+    annotationProcessor libs.cloth.config
 
     modImplementation libs.modmenu
 
     // Mod libraries
     implementation libs.toml4j
     include libs.toml4j
+
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
+}
+
+loom {
+    runs {
+        client {
+            runDir = "run/client"
+        }
+        server {
+            runDir = "run/server"
+        }
+    }
 }
 
 processResources {

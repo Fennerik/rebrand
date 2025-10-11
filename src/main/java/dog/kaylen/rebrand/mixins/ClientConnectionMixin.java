@@ -8,7 +8,6 @@ import dog.kaylen.rebrand.RebrandClientMod;
 import dog.kaylen.rebrand.config.RebrandModConfig;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.PacketCallbacks;
-import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.common.CustomPayloadC2SPacket;
 import org.jetbrains.annotations.Nullable;
@@ -29,17 +28,25 @@ public class ClientConnectionMixin {
 		if (RebrandClientMod.getInstance() == null) {
 			ci.cancel();
 		}
+
+		// Bail early if ghost mode is not enabled.
 		RebrandModConfig config = RebrandClientMod.getInstance().getConfig();
-		if (!config.enable || !config.ghostMode) {
+		if (config.getNetworkingBrand().isGhostModeEnabled(config)) {
 			return;
 		}
+
+		// Ensure we handle the right kinds of packets
 		if (!(packet instanceof CustomPayloadC2SPacket)) {
 			return;
 		}
-		if (((CustomPayloadC2SPacket) packet).comp_1647().comp_1678().toString()
+
+		// Cursed: get the packet identifier
+		if (((CustomPayloadC2SPacket) packet).comp_1647().getId().comp_2242().toString()
 				.matches("minecraft:(?!(?:un)?register).*")) {
 			return;
 		}
+
+		// Prevent the packet from being sent.
 		ci.cancel();
 	}
 }
