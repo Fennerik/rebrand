@@ -1,11 +1,11 @@
 [versions]
 # Fabric
-minecraft = "1.21.1"
-yarn = "1.21.1+build.3"
+minecraft = "1.21.3"
+yarn = "1.21.3+build.2"
 loader = "0.17.3"
 # Mod dependencies
-cloth-config = "15.0.140"
-modmenu = "11.0.3"
+cloth-config = "16.0.143"
+modmenu = "12.0.0"
 # Libraries
 toml4j = "0.7.2"
 lombok = "1.18.42"
