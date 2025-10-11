@@ -38,6 +38,6 @@
         "java": ">=21"
     },
     "suggests": {
-        "modmenu": "^9"
+        "modmenu": "^${modmenu_version}"
     }
 }
