@@ -17,7 +17,7 @@ import java.awt.Color;
 
 @Mixin(TitleScreen.class)
 public class TitleScreenMixin {
-	@ModifyArgs(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Ljava/lang/String;III)I"))
+	@ModifyArgs(method = "render(Lnet/minecraft/client/gui/DrawContext;IIF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Ljava/lang/String;III)V"))
 	public void rebrand$modifyRenderArgs(Args args) {
 		// Wait for mod initialisation.
 		if (RebrandClientMod.getInstance() == null) {

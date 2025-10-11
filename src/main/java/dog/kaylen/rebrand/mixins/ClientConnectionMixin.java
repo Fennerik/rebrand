@@ -6,6 +6,7 @@ package dog.kaylen.rebrand.mixins;
 
 import dog.kaylen.rebrand.RebrandClientMod;
 import dog.kaylen.rebrand.config.RebrandModConfig;
+import io.netty.channel.ChannelFutureListener;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.PacketCallbacks;
 import net.minecraft.network.packet.Packet;
@@ -22,8 +23,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  */
 @Mixin(ClientConnection.class)
 public class ClientConnectionMixin {
-	@Inject(method = "send(Lnet/minecraft/network/packet/Packet;Lnet/minecraft/network/PacketCallbacks;Z)V", at = @At("HEAD"), cancellable = true)
-	public void rebrand$send(Packet<?> packet, @Nullable PacketCallbacks callbacks, boolean flush, CallbackInfo ci) {
+	@Inject(method = "sendInternal(Lnet/minecraft/network/packet/Packet;Lio/netty/channel/ChannelFutureListener;Z)V", at = @At("HEAD"), cancellable = true)
+	public void rebrand$send(Packet<?> packet, ChannelFutureListener channelFutureListener, boolean bl,
+			CallbackInfo ci) {
 		// default to ghost mode if the mod is not initialized - shouldn't occur!
 		if (RebrandClientMod.getInstance() == null) {
 			ci.cancel();
