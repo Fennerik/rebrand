@@ -1,5 +1,5 @@
 /*
- * Copyright Kaylen Dart 2022
+ * Copyright Kaylen Dart 2022-2025
  * This project is licensed under the GNU GPLv3 license. See the LICENSE file for more information.
  */
 package dog.kaylen.rebrand.mixins;
@@ -15,11 +15,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
- * Prevents the client from sending a response to the server when ghost mode is enabled.
+ * Prevents the client from sending a response to the server when ghost mode is
+ * enabled.
  */
 @Mixin(LoginQueryResponseC2SPacket.class)
 public class LoginQueryResponseC2SPacketMixin {
-	@Inject(at = @At("TAIL"), method = "response()Lnet/minecraft/network/packet/c2s/login/LoginQueryResponsePayload;")
+	@Inject(at = @At("TAIL"), method = "response()Lnet/minecraft/network/packet/c2s/login/LoginQueryResponsePayload;", cancellable = true)
 	private void rebrand$response(CallbackInfoReturnable<LoginQueryResponsePayload> info) {
 		// default to ghost mode if the mod is not initialized - shouldn't occur!
 		if (RebrandClientMod.getInstance() == null) {

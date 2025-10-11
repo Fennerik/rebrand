@@ -1,5 +1,5 @@
 /*
- * Copyright Kaylen Dart 2022
+ * Copyright Kaylen Dart 2022-2025
  * This project is licensed under the GNU GPLv3 license. See the LICENSE file for more information.
  */
 package dog.kaylen.rebrand.mixins;
@@ -8,6 +8,7 @@ import dog.kaylen.rebrand.RebrandClientMod;
 import dog.kaylen.rebrand.config.RebrandModConfig;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.PacketCallbacks;
+import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.c2s.common.CustomPayloadC2SPacket;
 import org.jetbrains.annotations.Nullable;
@@ -17,7 +18,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * Prevents the client from sending custom payload packets ( except vanilla ones that aren't (un)register ) when ghost mode is enabled.
+ * Prevents the client from sending custom payload packets ( except vanilla ones
+ * that aren't (un)register ) when ghost mode is enabled.
  */
 @Mixin(ClientConnection.class)
 public class ClientConnectionMixin {
@@ -34,7 +36,7 @@ public class ClientConnectionMixin {
 		if (!(packet instanceof CustomPayloadC2SPacket)) {
 			return;
 		}
-		if (((CustomPayloadC2SPacket) packet).payload().id().toString().matches("minecraft:(?!(?:un)?register).*")) {
+		if (((CustomPayloadC2SPacket) packet).comp_1647().comp_1678().toString().matches("minecraft:(?!(?:un)?register).*")) {
 			return;
 		}
 		ci.cancel();

@@ -1,5 +1,5 @@
 /*
- * Copyright Kaylen Dart 2022
+ * Copyright Kaylen Dart 2022-2025
  * This project is licensed under the GNU GPLv3 license. See the LICENSE file for more information.
  */
 package dog.kaylen.rebrand;
@@ -47,6 +47,6 @@ public class RebrandClientMod implements ClientModInitializer {
 		instance = this;
 		// initialize the mod configuration
 		config = RebrandModConfigLoader.tryLoad();
-		this.logger.info("Rebrand initialized - brand on startup: '" + config.brandName + "'");
+        this.logger.info("Rebrand initialized - brand on startup: '{}'", config.brandName);
 	}
 }
