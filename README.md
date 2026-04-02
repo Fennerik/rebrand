@@ -5,6 +5,8 @@ Support for 26.1 is planned, but not available right now, because there are some
 
 _I'm glad they set the license to GPL v3, otherwise I wouldn't be allowed to do this._
 
+Kaylendog's original repo:[ https://github.com/kaylendog/rebrand](https://github.com/kaylendog/rebrand)
+
 The original readme:
 
 # rebrand
